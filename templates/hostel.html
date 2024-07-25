@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Hostel Details{% endblock title %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University Hostel Information</title>
+<style>
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+  }
+  .carousel {
+    max-width: 100%;
+    height: auto;
+  }
+  form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  input[type="number"],
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type="checkbox"] {
+    margin-top: 6px;
+  }
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px; /* Added margin */
+  }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  #totalAmount {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  /* Centering the button */
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+
+<h1>Welcome to XYZ University Hostel Information</h1>
+
+<div id="imageCarousel" class="carousel">
+
+  <img src="/static/hostel.jpg" alt="Hostel Image 1">
+  <img src="/static/mess.jpg" alt="Hostel Image 2">
+  <img src="/static/laundry.jpg" alt="Hostel Image 3">
+  <img src="/static/gym.jpg" alt="Hostel Image 3">
+
+</div>
+
+<h2>Hostel Facilities</h2>
+<ul>
+  <li>Accommodation Options:
+    <ul>
+      <li>4-seater room [$100 per month]</li>
+      <li>3-seater room [$250 per month]</li>
+      <li>2-seater room [$500 per month]</li>
+      <li>Single-seater room [$700 per month]</li>
+    </ul>
+  </li>
+  <li>Meal Plans (per day):
+    <ul>
+      <li>2 meals [$3 per day]</li>
+      <li>3 meals [$5 per day]</li>
+      <li>4 meals [$7 per day]</li>
+    </ul>
+  </li>
+  <li>Additional Charges:
+    <ul>
+      <li>Laundry service [$50 per month]</li>
+      <li>Gym access [$70 per month]</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>Hostel Booking and Calculation Form</h2>
+<form method="post" action="/hostel/"> 
+  {% csrf_token %}
+  
+  <h3>Personal Information</h3>
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+  
+  <label for="studentID">Student ID:</label>
+  <input type="text" id="studentID" name="studentID" required>
+  
+  <label for="contactNumber">Contact Number:</label>
+  <input type="text" id="contactNumber" name="contactNumber" required>
+  
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email" required>
+  
+  <h3>Accommodation Details</h3>
+  <label for="roomType">Select Room Type:</label>
+  <select id="roomType" name="roomType" required>
+    <option value="4seater">4-seater room</option>
+    <option value="3seater">3-seater room</option>
+    <option value="2seater">2-seater room</option>
+    <option value="singleseater">Single-seater room</option>
+  </select>
+  
+  <label for="duration">Duration of Stay (months):</label>
+  <input type="number" id="duration" name="duration" min="1" required>
+  
+  <h3>Meal Plan</h3>
+  <label for="mealPlan">Select Meal Plan:</label>
+  <select id="mealPlan" name="mealPlan" required>
+    <option value="2meals">2 meals</option>
+    <option value="3meals">3 meals</option>
+    <option value="4meals">4 meals</option>
+  </select>
+  
+  <label for="mealDays">Number of Days (per day):</label>
+  <input type="number" id="mealDays" name="mealDays" min="1" required>
+  
+  <h3>Additional Services</h3>
+  <label for="laundry">Laundry Service:</label>
+  <input type="checkbox" id="laundry" name="laundry">
+  
+  <label for="gym">Gym Access:</label>
+  <input type="checkbox" id="gym" name="gym">
+  
+  <div id="totalAmount"></div>
+
+  <div class="center">
+    <input type="submit" value="Book Now" id="bookNowBtn">
+  </div>
+</form>
+<script>
+
+document.getElementById("roomType").addEventListener("change", calculateTotal);
+document.getElementById("duration").addEventListener("input", calculateTotal);
+document.getElementById("mealPlan").addEventListener("change", calculateTotal);
+document.getElementById("mealDays").addEventListener("input", calculateTotal);
+document.getElementById("laundry").addEventListener("change", calculateTotal);
+document.getElementById("gym").addEventListener("change", calculateTotal);
+
+
+calculateTotal();
+
+function calculateTotal() {
+  var roomType = document.getElementById("roomType").value;
+  var duration = parseInt(document.getElementById("duration").value);
+  var mealPlan = document.getElementById("mealPlan").value;
+  var mealDays = parseInt(document.getElementById("mealDays").value);
+  var laundry = document.getElementById("laundry").checked;
+  var gym = document.getElementById("gym").checked;
+
+  var roomPrices = {
+    "4seater": 100,
+    "3seater": 250,
+    "2seater": 500,
+    "singleseater": 700
+  };
+
+  var mealPrices = {
+    "2meals": 3,
+    "3meals": 5,
+    "4meals": 7,
+  };
+
+  var laundryPrice = 50; 
+  var gymPrice = 70;
+
+  var accommodationCharge = roomPrices[roomType] * duration;
+  var mealCharge = mealPrices[mealPlan] * mealDays;
+  var additionalCharges = 0;
+
+  if (laundry) {
+    additionalCharges += laundryPrice;
+  }
+  if (gym) {
+    additionalCharges += gymPrice;
+  }
+
+  var totalAmount = accommodationCharge + mealCharge + additionalCharges;
+  var totalAmountDiv = document.getElementById("totalAmount");
+  totalAmountDiv.innerHTML = "<h3>Total Amount:</h3>$" + totalAmount;
+}
+
+
+function submitForm() {
+  var form = document.getElementById("hostelForm");
+  form.submit();
+}
+</script>
+
+</body>
+</html>
+
+{% endblock content %}

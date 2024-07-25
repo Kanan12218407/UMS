@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}Backlog/Re-appear{% endblock title %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University - Backlog/Reappear Application</title>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input[type="text"],
+form input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.payment-options {
+    margin-top: 20px;
+}
+
+.payment-option {
+    margin-bottom: 10px;
+}
+
+.payment-option label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 5px;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>XYZ University - Backlog/Reappear Application</h1>
+    </div>
+</header>
+
+<main class="container">
+    <form method="post" action="/re/">
+            {% csrf_token %}
+    
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" name="studentName" required>
+        
+        <label for="registrationNumber">Registration Number:</label>
+        <input type="text" id="registrationNumber" name="registrationNumber" required>
+        
+        <label for="course">Course:</label>
+        <select id="course" name="course" required>
+            <option value="">Select Course</option>
+            <option value="btech-cse">B.Tech in Computer Science</option>
+            <option value="mba">MBA</option>
+            <option value="ba-economics">BA in Economics</option>
+            <option value="bsc-environmental">BSc in Environmental Science</option>
+            <option value="mph">Master in Public Health (MPH)</option>
+            <option value="ba-psychology">BA in Psychology</option>
+        </select>
+        
+        <label for="backlogCourseCode">Backlog Course Code:</label>
+        <input type="text" id="backlogCourseCode" name="backlogCourseCode" required>
+        
+        <label for="backlogSubject">Backlog Subject Name:</label>
+        <input type="text" id="backlogSubject" name="backlogSubject" required>
+        
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <input type="submit" value="Register for Exam">
+    </form>
+    
+    <div class="payment-options">
+        <h2>Payment Options:</h2>
+        <div class="payment-option">
+            <input type="radio" id="midTerm" name="paymentOption" value="50">
+            <label for="midTerm">Mid Term - $50</label>
+        </div>
+        <div class="payment-option">
+            <input type="radio" id="endTerm" name="paymentOption" value="100">
+            <label for="endTerm">End Term - $100</label>
+        </div>
+        <div class="payment-option">
+            <input type="radio" id="endTermAssignments" name="paymentOption" value="250">
+            <label for="endTermAssignments">End Term + Assignments - $250</label>
+        </div>
+        
+        <button onclick="makePayment()">Pay Now</button>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 XYZ University. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+function submitForm(event) {
+    event.preventDefault();
+    
+    // Basic form data validation
+    const studentName = document.getElementById('studentName').value.trim();
+    const registrationNumber = document.getElementById('registrationNumber').value.trim();
+    const course = document.getElementById('course').value;
+    const backlogCourseCode = document.getElementById('backlogCourseCode').value.trim();
+    const backlogSubject = document.getElementById('backlogSubject').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const email = document.getElementById('email').value.trim();
+    
+    // Perform more detailed validation here if needed
+    
+    // Example: Check if all required fields are filled
+    if (!studentName || !registrationNumber || !course || !backlogCourseCode || !backlogSubject || !phoneNumber || !email) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+    
+    // Example: Send form data to server (not implemented here)
+    alert('Exam registration submitted successfully!'); // Replace with actual form submission logic
+    
+    // Reset form after submission (optional)
+    document.getElementById('backlogForm').reset();
+}
+
+function makePayment() {
+    const paymentOptions = document.getElementsByName('paymentOption');
+    let selectedOption = null;
+    
+    // Get selected payment option
+    for (let option of paymentOptions) {
+        if (option.checked) {
+            selectedOption = option;
+            break;
+        }
+    }
+    
+    if (!selectedOption) {
+        alert('Please select a payment option.');
+        return;
+    }
+    
+    const amount = selectedOption.value;
+    const optionText = selectedOption.nextElementSibling.textContent.trim();
+    
+    // Perform payment processing (not implemented here)
+    alert(`Payment of ${optionText} processed successfully. Amount: $${amount}`);
+}
+</script>
+
+</body>
+</html>
+
+{% endblock content %}

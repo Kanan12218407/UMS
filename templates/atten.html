@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block title %}Services{% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University - Student Timetable & Attendance</title>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-top: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#courseSelection {
+    text-align: center;
+}
+
+#courseSelect {
+    padding: 8px;
+    font-size: 1rem;
+}
+
+#timetableDisplay {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#attendanceDisplay {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+
+
+<main class="container">
+    <section id="courseSelection">
+        <h2>Select Your Course</h2>
+        <select id="courseSelect" onchange="populateTimetable()">
+            <option value="btech-cse">B.Tech in Computer Science</option>
+            <option value="mba">MBA</option>
+            <option value="ba-economics">BA in Economics</option>
+            <option value="bsc-environmental">BSc in Environmental Science</option>
+            <option value="mph">Master in Public Health</option>
+            <option value="ba-psychology">BA in Psychology</option>
+        </select>
+    </section>
+
+    <section id="timetable">
+        <h2>Timetable</h2>
+        <div id="timetableDisplay">
+            <!-- Timetable will be dynamically populated here -->
+        </div>
+    </section>
+
+    <section id="attendance">
+        <h2>Your Attendance</h2>
+        <div id="attendanceDisplay">
+            <!-- Attendance details will be dynamically updated here -->
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 XYZ University. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Dummy data for timetable and attendance (to be replaced with actual data fetching)
+const timetableData = {
+    "btech-cse": [
+        { day: "Monday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Computer Networks", "Database Management", "Web Development"] },
+        { day: "Tuesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Operating Systems", "Data Structures", "Software Engineering"] },
+        { day: "Wednesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Algorithm Design", "Network Security", "Mobile App Development"] },
+        { day: "Thursday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Artificial Intelligence", "Cloud Computing", "Big Data Analytics"] },
+        { day: "Friday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Cyber Security", "Machine Learning", "IoT Technologies"] }
+    ],
+    "mba": [
+        { day: "Monday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Marketing Management", "Financial Accounting", "Business Ethics"] },
+        { day: "Tuesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Human Resource Management", "Operations Management", "Business Law"] },
+        { day: "Wednesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Strategic Management", "Entrepreneurship", "International Business"] },
+        { day: "Thursday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Supply Chain Management", "Managerial Economics", "Corporate Finance"] },
+        { day: "Friday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Organizational Behavior", "Business Analytics", "Project Management"] }
+    ],
+    "ba-economics": [
+        { day: "Monday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Microeconomics", "Macroeconomics", "Econometrics"] },
+        { day: "Tuesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Development Economics", "International Trade", "Public Finance"] },
+        { day: "Wednesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Economic History", "Labor Economics", "Environmental Economics"] },
+        { day: "Thursday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Health Economics", "Monetary Economics", "Political Economy"] },
+        { day: "Friday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Behavioral Economics", "Urban Economics", "Economic Policy"] }
+    ],
+    "bsc-environmental": [
+        { day: "Monday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Ecology", "Environmental Chemistry", "Conservation Biology"] },
+        { day: "Tuesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Climate Change", "Environmental Impact Assessment", "Geographical Information Systems"] },
+        { day: "Wednesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Natural Resource Management", "Environmental Policy", "Sustainability Science"] },
+        { day: "Thursday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Biodiversity Conservation", "Ecotoxicology", "Environmental Economics"] },
+        { day: "Friday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Marine Biology", "Forestry", "Remote Sensing"] }
+    ],
+    "mph": [
+        { day: "Monday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Epidemiology", "Biostatistics", "Health Policy"] },
+        { day: "Tuesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Global Health", "Public Health Nutrition", "Health Systems Management"] },
+        { day: "Wednesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Maternal and Child Health", "Infectious Diseases", "Health Promotion"] },
+        { day: "Thursday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Environmental Health", "Occupational Health", "Mental Health"] },
+        { day: "Friday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Health Education", "Research Methods", "Healthcare Quality Management"] }
+    ],
+    "ba-psychology": [
+        { day: "Monday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["General Psychology", "Developmental Psychology", "Social Psychology"] },
+        { day: "Tuesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Cognitive Psychology", "Abnormal Psychology", "Health Psychology"] },
+        { day: "Wednesday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Personality Psychology", "Industrial-Organizational Psychology", "Educational Psychology"] },
+        { day: "Thursday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Forensic Psychology", "Positive Psychology", "Counseling Psychology"] },
+        { day: "Friday", timings: ["9:00 AM - 10:30 AM", "10:45 AM - 12:15 PM", "1:00 PM - 2:30 PM"], lectures: ["Psychological Testing", "Neuropsychology", "Research Methods in Psychology"] }
+    ]
+};
+
+// Function to populate timetable based on selected course
+function populateTimetable() {
+    const course = document.getElementById("courseSelect").value;
+    const timetableDisplay = document.getElementById("timetableDisplay");
+
+    // Clear previous timetable
+    timetableDisplay.innerHTML = "";
+
+    // Create table and headers
+    const table = document.createElement("table");
+    const tableHeader = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    const headers = ["Day", "Timings", "Lectures"];
+    
+    headers.forEach(headerText => {
+        let th = document.createElement("th");
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+
+    tableHeader.appendChild(headerRow);
+    table.appendChild(tableHeader);
+
+    // Create table body (timetable data)
+    const tableBody = document.createElement("tbody");
+    timetableData[course].forEach(day => {
+        let row = document.createElement("tr");
+        
+        let dayCell = document.createElement("td");
+        dayCell.textContent = day.day;
+        row.appendChild(dayCell);
+
+        let timingsCell = document.createElement("td");
+        timingsCell.textContent = day.timings.join(", ");
+        row.appendChild(timingsCell);
+
+        let lecturesCell = document.createElement("td");
+        lecturesCell.textContent = day.lectures.join(", ");
+        row.appendChild(lecturesCell);
+
+        tableBody.appendChild(row);
+    });
+
+    table.appendChild(tableBody);
+    timetableDisplay.appendChild(table);
+}
+
+// Dummy function to display attendance (to be replaced with actual implementation)
+function displayAttendance() {
+    const attendanceDisplay = document.getElementById("attendanceDisplay");
+    attendanceDisplay.innerHTML = "<h3>Your Attendance:</h3><p>85%</p>";
+}
+
+// Initial population of timetable and attendance display
+populateTimetable();
+displayAttendance();
+</script>
+
+</body>
+</html>
+
+{% endblock content %}

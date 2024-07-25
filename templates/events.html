@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}Events{% endblock title %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events and Festivals - XYZ University</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.event {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.event img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.event-details {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.event-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.event-meta {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.event-description {
+  margin-bottom: 10px;
+}
+
+.event-guests {
+  font-weight: bold;
+}
+
+.event-guests ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-guests ul li {
+  margin-bottom: 5px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Upcoming Events and Festivals</h1>
+
+  <!-- Event 1 -->
+  <div class="event">
+    <img src="/static/fest.jpg" alt="Event 1 Image">
+    <div class="event-details">
+      <div class="event-title">Annual Cultural Fest - 2024</div>
+      <div class="event-meta">Date: October 15-17, 2024</div>
+      <div class="event-meta">Time: 9:00 AM onwards</div>
+      <div class="event-description">
+        Experience a blend of cultural performances, music, dance, and food stalls. Join us for an exciting weekend of celebration!
+      </div>
+      <div class="event-guests">
+        <div>Famous Guests:</div>
+        <ul>
+          <li>Renowned musician John Doe</li>
+          <li>Famous dancer Jane Smith</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event 2 -->
+  <div class="event">
+    <img src="/static/careerseminar.jpg" alt="Event 2 Image">
+    <div class="event-details">
+      <div class="event-title">Career Seminar Series</div>
+      <div class="event-meta">Date: November 5, 2024</div>
+      <div class="event-meta">Time: 2:00 PM - 4:00 PM</div>
+      <div class="event-description">
+        Learn from industry experts about career opportunities, skill development, and professional growth strategies.
+      </div>
+      <div class="event-guests">
+        <div>Keynote Speaker:</div>
+        <ul>
+          <li>Dr. Emily Johnson, CEO of Tech Innovations Inc.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event 3 -->
+  <div class="event">
+    <img src="/static/glec.jpg" alt="Event 3 Image">
+    <div class="event-details">
+      <div class="event-title">Guest Lecture on Environmental Sustainability</div>
+      <div class="event-meta">Date: November 20, 2024</div>
+      <div class="event-meta">Time: 10:00 AM - 12:00 PM</div>
+      <div class="event-description">
+        Join us for an insightful session on environmental conservation and sustainable practices by renowned ecologist Dr. Michael Green.
+      </div>
+      <div class="event-guests">
+        <div>Guest Speaker:</div>
+        <ul>
+          <li>Dr. Michael Green, Environmental Scientist</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event 4 -->
+  <div class="event">
+    <img src="/static/techexpo.jpg" alt="Event 4 Image">
+    <div class="event-details">
+      <div class="event-title">Tech Expo - 2025</div>
+      <div class="event-meta">Date: February 10-12, 2025</div>
+      <div class="event-meta">Time: 9:00 AM - 6:00 PM</div>
+      <div class="event-description">
+        Explore the latest innovations in technology, robotics, and artificial intelligence. Hands-on demos and interactive sessions available!
+      </div>
+      <div class="event-guests">
+        <div>Keynote Speakers:</div>
+        <ul>
+          <li>Elon Musk, CEO of SpaceX and Tesla</li>
+          <li>Dr. Angela Yu, AI Researcher</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event 5 -->
+  <div class="event">
+    <img src="/static/bookfest.jpg" alt="Event 5 Image">
+    <div class="event-details">
+      <div class="event-title">Literary Fest - 2025</div>
+      <div class="event-meta">Date: April 20-22, 2025</div>
+      <div class="event-meta">Time: 10:00 AM - 5:00 PM</div>
+      <div class="event-description">
+        Celebrate literature with renowned authors, poets, and storytellers. Book readings, panel discussions, and book signings await!
+      </div>
+      <div class="event-guests">
+        <div>Famous Guests:</div>
+        <ul>
+          <li>Author J.K. Rowling</li>
+          <li>Poet Maya Angelou</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event 6 -->
+  <div class="event">
+    <img src="/static/music.jpg" alt="Event 6 Image">
+    <div class="event-details">
+      <div class="event-title">Music Concert - 2025</div>
+      <div class="event-meta">Date: July 5, 2025</div>
+      <div class="event-meta">Time: 7:00 PM onwards</div>
+      <div class="event-description">
+        Enjoy an electrifying evening with top musical performers and bands. Dance, sing along, and create unforgettable memories!
+      </div>
+      <div class="event-guests">
+        <div>Performers:</div>
+        <ul>
+          <li>Pop sensation Ariana Grande</li>
+          <li>Rock band Coldplay</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
+
+{% endblock content %}

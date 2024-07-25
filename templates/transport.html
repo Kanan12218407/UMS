@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Transport {% endblock title %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University Transport Facilities</title>
+<style>
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+  }
+  .transport-info {
+    margin-bottom: 20px;
+  }
+  .transport-info h2 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+  }
+  .transport-info ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .transport-info ul li {
+    margin-bottom: 10px;
+  }
+  form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+
+<h1>Welcome to XYZ University Transport Facilities</h1>
+
+<div class="transport-info">
+  <h2>Transport Options</h2>
+  <ul>
+    <li><strong>Shuttle Service</strong>: Covers all main campus areas.</li>
+    <li><strong>City Bus Service</strong>: Extends to downtown and surrounding areas.</li>
+    <li><strong>Monthly Passes Available</strong>: Cost-effective for regular commuters.</li>
+  </ul>
+</div>
+
+<div class="transport-info">
+  <h2>Charges</h2>
+  <ul>
+    <li><strong>Shuttle Service</strong>: $50 per month for unlimited rides within campus.</li>
+    <li><strong>City Bus Service</strong>: $100 per month for unlimited city-wide travel.</li>
+    <li><strong>Custom Routes</strong>: Price varies based on distance covered per month.</li>
+  </ul>
+</div>
+
+<h2>Registration Form</h2>
+<form method="post" action="/transport/">
+  {% csrf_token %}
+<form id="transportForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="studentID">Student ID:</label>
+  <input type="text" id="studentID" name="studentID" required>
+
+  <label for="contactNumber">Contact Number:</label>
+  <input type="text" id="contactNumber" name="contactNumber" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="transportOption">Select Transport Option:</label>
+  <select id="transportOption" name="transportOption" required>
+    <option value="select">Select Option</option>
+    <option value="shuttle">Shuttle Service ($50 per month)</option>
+    <option value="citybus">City Bus Service ($100 per month)</option>
+    <option value="custom">Custom Route (Variable pricing)</option>
+  </select>
+
+  <label for="distanceCovered">Estimated Kilometers Covered per Month:</label>
+  <input type="number" id="distanceCovered" name="distanceCovered" min="1" required>
+
+  <input type="submit" value="Register Now" onclick="submitForm();" id="registerBtn">
+</form>
+
+<script>
+function submitForm() {
+  var form = document.getElementById("transportForm");
+  form.submit();
+}
+</script>
+
+</body>
+</html>
+
+
+
+{% endblock content %}

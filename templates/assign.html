@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}Assignments{% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University - Assignments</title>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-top: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#courseSelection {
+    text-align: center;
+}
+
+#courseSelect {
+    padding: 8px;
+    font-size: 1rem;
+}
+
+#assignmentsDisplay {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+</style>
+</head>
+<body>
+
+
+
+<main class="container">
+    <section id="courseSelection">
+        <h2>Select Your Course</h2>
+        <select id="courseSelect" onchange="populateAssignments()">
+            <option value="">Select Course</option>
+            <option value="btech-cse">B.Tech in Computer Science</option>
+            <option value="mba">MBA</option>
+            <option value="ba-economics">BA in Economics</option>
+            <option value="bsc-environmental">BSc in Environmental Science</option>
+            <option value="mph">Master in Public Health</option>
+            <option value="ba-psychology">BA in Psychology</option>
+        </select>
+    </section>
+
+    <section id="assignments">
+        <h2>Assignments</h2>
+        <div id="assignmentsDisplay">
+            <!-- Assignments will be dynamically populated here -->
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 XYZ University. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Dummy data for assignments (to be replaced with actual data fetching)
+const assignmentsData = {
+    "btech-cse": [
+        { assignment: "Web Development Project", startDate: "2024-08-01", deadline: "2024-08-30" },
+        { assignment: "Database Management System Design", startDate: "2024-08-10", deadline: "2024-09-10" },
+        { assignment: "Algorithm Analysis Report", startDate: "2024-08-15", deadline: "2024-09-15" },
+        { assignment: "Software Engineering Proposal", startDate: "2024-08-20", deadline: "2024-09-20" }
+    ],
+    "mba": [
+        { assignment: "Marketing Campaign Analysis", startDate: "2024-08-01", deadline: "2024-08-30" },
+        { assignment: "Financial Accounting Case Study", startDate: "2024-08-10", deadline: "2024-09-10" },
+        { assignment: "Strategic Management Paper", startDate: "2024-08-15", deadline: "2024-09-15" },
+        { assignment: "Business Ethics Presentation", startDate: "2024-08-20", deadline: "2024-09-20" }
+    ],
+    "ba-economics": [
+        { assignment: "Microeconomics Research Paper", startDate: "2024-08-01", deadline: "2024-08-30" },
+        { assignment: "Macroeconomics Case Study", startDate: "2024-08-10", deadline: "2024-09-10" },
+        { assignment: "Econometrics Project", startDate: "2024-08-15", deadline: "2024-09-15" },
+        { assignment: "Development Economics Report", startDate: "2024-08-20", deadline: "2024-09-20" }
+    ],
+    "bsc-environmental": [
+        { assignment: "Environmental Impact Assessment", startDate: "2024-08-01", deadline: "2024-08-30" },
+        { assignment: "Conservation Biology Field Report", startDate: "2024-08-10", deadline: "2024-09-10" },
+        { assignment: "Sustainability Science Project", startDate: "2024-08-15", deadline: "2024-09-15" },
+        { assignment: "Environmental Economics Paper", startDate: "2024-08-20", deadline: "2024-09-20" }
+    ],
+    "mph": [
+        { assignment: "Epidemiology Research Proposal", startDate: "2024-08-01", deadline: "2024-08-30" },
+        { assignment: "Health Policy Analysis", startDate: "2024-08-10", deadline: "2024-09-10" },
+        { assignment: "Global Health Project", startDate: "2024-08-15", deadline: "2024-09-15" },
+        { assignment: "Public Health Nutrition Report", startDate: "2024-08-20", deadline: "2024-09-20" }
+    ],
+    "ba-psychology": [
+        { assignment: "Developmental Psychology Case Study", startDate: "2024-08-01", deadline: "2024-08-30" },
+        { assignment: "Cognitive Psychology Experiment", startDate: "2024-08-10", deadline: "2024-09-10" },
+        { assignment: "Abnormal Psychology Paper", startDate: "2024-08-15", deadline: "2024-09-15" },
+        { assignment: "Health Psychology Project", startDate: "2024-08-20", deadline: "2024-09-20" }
+    ]
+};
+
+// Function to populate assignments based on selected course
+function populateAssignments() {
+    const course = document.getElementById("courseSelect").value;
+    const assignmentsDisplay = document.getElementById("assignmentsDisplay");
+
+    // Clear previous assignments
+    assignmentsDisplay.innerHTML = "";
+
+    // Create table and headers
+    const table = document.createElement("table");
+    const tableHeader = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    const headers = ["Assignment", "Start Date", "Deadline"];
+    
+    headers.forEach(headerText => {
+        let th = document.createElement("th");
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+
+    tableHeader.appendChild(headerRow);
+    table.appendChild(tableHeader);
+
+    // Create table body (assignments data)
+    const tableBody = document.createElement("tbody");
+    assignmentsData[course].forEach(assignment => {
+        let row = document.createElement("tr");
+        
+        let assignmentCell = document.createElement("td");
+        assignmentCell.textContent = assignment.assignment;
+        row.appendChild(assignmentCell);
+
+        let startDateCell = document.createElement("td");
+        startDateCell.textContent = assignment.startDate;
+        row.appendChild(startDateCell);
+
+        let deadlineCell = document.createElement("td");
+        deadlineCell.textContent = assignment.deadline;
+        row.appendChild(deadlineCell);
+
+        tableBody.appendChild(row);
+    });
+
+    table.appendChild(tableBody);
+    assignmentsDisplay.appendChild(table);
+}
+
+</script>
+
+</body>
+</html>
+
+{% endblock content %}

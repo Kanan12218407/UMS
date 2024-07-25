@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}Leave application{% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University - Leave Application</title>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8 rem;
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea,
+form input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+form textarea {
+    height: 100px;
+}
+
+form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>XYZ University - Leave Application</h1>
+        
+    </div>
+</header>
+
+
+<main class="container">
+    <form method="post" action="/leave/">
+    {% csrf_token %}
+        
+        <label for="studentname">Student Name:</label>
+        <input type="text" id="studentname" name="student_name" required>
+        
+        <label for="registrationNumber">Registration Number:</label>
+        <input type="text" id="registrationNumber" name="registration_number" required>
+        
+        <label for="course">Course:</label>
+        <select id="course" name="course" required>
+            <option value="">Select Course</option>
+            <option value="btech-cse">B.Tech in Computer Science</option>
+            <option value="mba">MBA</option>
+            <option value="ba-economics">BA in Economics</option>
+            <option value="bsc-environmental">BSc in Environmental Science</option>
+            <option value="mph">Master in Public Health (MPH)</option>
+            <option value="ba-psychology">BA in Psychology</option>
+        </select>
+        
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phone_number" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="start_date" required>
+        
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="end_date" required>
+        
+        <label for="reason">Reason for Leave:</label>
+        <textarea id="reason" name="reason" required></textarea>
+        
+        <label for="documents">Upload Necessary Documents (max 5MB):</label>
+        <input type="file" id="documents" name="documents">
+        
+        <input type="submit" value="Apply for Leave">
+    </form>
+</main>
+{% endblock content %}
+  

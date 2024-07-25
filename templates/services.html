@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services{% endblock title %}
+
+{% block content %}
+<style>
+  /* Custom CSS styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9; /* Light grey background */
+    color: #333; /* Dark grey text color */
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .service-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .service-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .service-description {
+    color: #666;
+  }
+
+  .service-description ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+
+  .service-description p {
+    margin-bottom: 10px;
+  }
+
+  .service-description strong {
+    color: #ff5733; /* Custom highlight color */
+  }
+
+  /* Custom JavaScript (if needed) */
+  /* Example: Activate tooltips */
+  $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</style>
+<div class="container">
+
+  <h1 class="text-center my-5">Our Services</h1>
+
+  <div class="service-section">
+    <a href="/infrastructure/">
+      <h2 class="service-title">Infrastructure</h2>
+    </a>
+    <p class="service-description">
+      XYZ University boasts state-of-the-art infrastructure designed to foster an enriching academic environment. The campus spans across 100 acres, featuring:
+    </p>
+    <ul>
+      <li>Modern classrooms equipped with smart boards</li>
+      <li>Advanced laboratories for practical learning</li>
+      <li>Well-stocked library with digital resources</li>
+      <li>Recreational facilities and green spaces</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our new science block includes a cutting-edge physics laboratory with equipment for quantum mechanics research.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/faculty/">
+      <h2 class="service-title">Faculty</h2>
+    </a>
+    <p class="service-description">
+      The faculty at XYZ University comprises accomplished academics and industry experts dedicated to nurturing the next generation of leaders. Key features include:
+    </p>
+    <ul>
+      <li>Expertise in diverse fields with global experience</li>
+      <li>Mentorship and research guidance</li>
+      <li>Regular workshops, seminars, and conferences</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our computer science faculty includes professors who have published groundbreaking research in artificial intelligence.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/students/">
+      <h2 class="service-title">Students</h2>
+    </a>
+    <p class="service-description">
+      Students at XYZ University experience a vibrant campus life that supports personal growth and development. Highlights include:
+    </p>
+    <ul>
+      <li>Diverse student community from around the world</li>
+      <li>Student clubs, societies, and extracurricular activities</li>
+      <li>Supportive student services and counseling</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our student body organizes an annual cultural festival showcasing talents from different countries.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/hostel/">
+      <h2 class="service-title">Hostels</h2>
+    </a>
+    <p class="service-description">
+      XYZ University provides comfortable and secure hostel facilities for its students. Features include:
+    </p>
+    <ul>
+      <li>Modern accommodation with single and shared rooms</li>
+      <li>24/7 security and surveillance</li>
+      <li>Recreational facilities and common rooms</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our newest hostel block includes eco-friendly amenities and a rooftop garden for relaxation.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/transport/">
+      <h2 class="service-title">Transport</h2>
+    </a>
+    <p class="service-description">
+      XYZ University offers convenient transport services for students and faculty. Services include:
+    </p>
+    <ul>
+      <li>Bus services connecting campus with key city areas</li>
+      <li>Special transport arrangements for events and excursions</li>
+      <li>Accessible and safe transport options</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our transport fleet includes electric buses to reduce carbon footprint on campus.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/semex/">
+      <h2 class="service-title">Semester Exchange Programs</h2>
+    </a>
+    <p class="service-description">
+      XYZ University offers semester exchange programs with international partner universities to broaden students' academic and cultural perspectives. Program details include:
+    </p>
+    <ul>
+      <li>Opportunities for studying abroad in prestigious institutions</li>
+      <li>Customized programs tailored to student interests</li>
+      <li>Support for visa processing and logistics</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our recent exchange program to France allowed students to study French language and culture at Sorbonne University.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/placement/">
+      <h2 class="service-title">Placements</h2>
+    </a>
+    <p class="service-description">
+      XYZ University ensures strong industry connect and career opportunities through robust placement services. Features include:
+    </p>
+    <ul>
+      <li>Internship opportunities with leading companies</li>
+      <li>Career counseling and skill development workshops</li>
+      <li>Annual placement drives and networking events</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our recent graduates secured placements in top multinational companies like Google and Microsoft.</p>
+  </div>
+
+  <div class="service-section">
+    <a href="/events/">
+      <h2 class="service-title">Events</h2>
+    </a>
+    <p class="service-description">
+      XYZ University hosts a variety of events throughout the year to enrich campus life and foster community spirit. Events include:
+    </p>
+    <ul>
+      <li>Annual cultural festivals and talent shows</li>
+      <li>Guest lectures by renowned personalities</li>
+      <li>Sports tournaments and competitions</li>
+    </ul>
+    <p class="mb-0"><strong>*</strong> Our recent sports fest attracted participants from neighboring universities, promoting sportsmanship and camaraderie.</p>
+  </div>
+</div>
+
+{% endblock content %}
+

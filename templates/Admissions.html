@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}Admissions{% endblock title %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions - XYZ University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-NRdWRBLbq66T/J1+6MTU/JJ4XJXGJbsTHyLzJ9eFrnqFYWmHkS9CvR0Q7/NqrgozXBRsG4dCC1P4C6ZoUDLkzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .program {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+        .program img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .program h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .program p {
+            line-height: 1.6;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 0 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admissions at XYZ University</h1>
+    
+        <div class="program">
+            <img src="../static/woman-coder-.jpg" alt="CSE">
+            <h2>Bachelor of Technology in Computer Science</h2>
+            <p><strong>Program Overview:</strong> The Bachelor of Science in Computer Science program at XYZ University prepares students for careers in software development, cybersecurity, data analysis, and more.</p>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p><strong>Tuition Fee:</strong> $16,000 per year</p>
+            <div class="btn-container">
+                <a href='/cse/' class="btn">Admission Details</a>
+                <a href="/courseregistration/" class="btn">Register Now</a>
+                <a href="/feecse/" class="btn">Fee Structure</a>
+                <a href="/counselling/" class="btn">Counselling</a>
+            </div>
+        </div>
+    
+        <div class="program">
+            <img src="../static/mba.jpeg" alt="MBA">
+            <h2>Master of Business Administration (MBA)</h2>
+            <p><strong>Program Overview:</strong> The MBA program at XYZ University offers concentrations in finance, marketing, and entrepreneurship, preparing graduates for leadership roles in business.</p>
+            <p><strong>Duration:</strong> 2 years</p>
+            <p><strong>Tuition Fee:</strong> $15,000 per year</p>
+            <div class="btn-container">
+                <a href='/mba/' class="btn">Admission Details</a>
+                <a href="/courseregistration/" class="btn">Register Now</a>
+                <a href="/feemba/" class="btn">Fee Structure</a>
+                <a href="/counselling/" class="btn">Counselling</a>
+            </div>
+        </div>
+    
+        <div class="program">
+            <img src="../static/artseco.jpeg" alt="artsineconomics">
+            <h2>Bachelor of Arts in Economics</h2>
+            <p><strong>Program Overview:</strong> The Bachelor of Arts in Economics program equips students with analytical skills to understand economic phenomena and their impact on society.</p>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p><strong>Tuition Fee:</strong> $11,000 per year</p>
+            <div class="btn-container">
+                <a href='/economics/' class="btn">Admission Details</a>
+                <a href="/courseregistration/" class="btn">Register Now</a>
+                <a href="/feeeco/" class="btn">Fee Structure</a>
+                <a href="/counselling/" class="btn">Counselling</a>
+            </div>
+        </div>
+    
+        <div class="program">
+            <img src="../static/env.jpeg" alt="bsc">
+            <h2>Bachelor of Science in Environmental Science</h2>
+            <p><strong>Program Overview:</strong> The Bachelor of Science in Environmental Science program focuses on the study of the environment, ecological systems, and sustainable development.</p>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p><strong>Tuition Fee:</strong> $12,500 per year</p>
+            <div class="btn-container">
+                <a href='/environmentalscience/' class="btn">Admission Details</a>
+                <a href="/courseregistration/" class="btn">Register Now</a>
+                <a href="/feeev/" class="btn">Fee Structure</a>
+                <a href="/counselling/" class="btn">Counselling</a>
+            </div>
+        </div>
+    
+        <div class="program">
+            <img src="../static/publichealth.jpeg" alt="publichealth">
+            <h2>Master of Public Health (MPH)</h2>
+            <p><strong>Program Overview:</strong> The Master of Public Health program prepares students for careers in public health policy, management, and epidemiology.</p>
+            <p><strong>Duration:</strong> 2 years</p>
+            <p><strong>Tuition Fee:</strong> $14,000 per year</p>
+            <div class="btn-container">
+                <a href='/publichealth/' class="btn">Admission Details</a>
+                <a href="/courseregistration/" class="btn">Register Now</a>
+                <a href="/feemph/" class="btn">Fee Structure</a>
+                <a href="/counselling/" class="btn">Counselling</a>
+            </div>
+        </div>
+    
+        <div class="program">
+            <img src="../static/psy.jpeg" alt="Psychology">
+            <h2>Bachelor of Arts in Psychology</h2>
+            <p><strong>Program Overview:</strong> The Bachelor of Arts in Psychology program provides students with a comprehensive understanding of human behavior and prepares them for careers in counseling, research, and social services.</p>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p><strong>Tuition Fee:</strong> $12,000 per year</p>
+            <div class="btn-container">
+                <a href='/psychology/' class="btn">Admission Details</a>
+                <a href="/courseregistration/" class="btn">Register Now</a>
+                <a href="/feepsy/" class="btn">Fee Structure</a>
+                <a href="/counselling/" class="btn">Counselling</a>
+            </div>
+        </div>
+    
+</div>
+
+</body>
+</html>
+
+
+{% endblock content %}

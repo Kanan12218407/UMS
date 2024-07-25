@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+
+{% block title %}Result{% endblock title %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University - Results</title>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-top: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.result-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.result-table th, .result-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+</style>
+</head>
+<body>
+
+
+
+<main class="container">
+    <section>
+        <h2>Check Your Results</h2>
+        <form id="resultsForm" onsubmit="showResults(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="registrationNo">Registration Number:</label>
+            <input type="text" id="registrationNo" name="registrationNo" required>
+            
+            <label for="course">Select Your Course:</label>
+            <select id="course" name="course" required>
+                <option value="">Select Course</option>
+                <option value="btech-cse">B.Tech in Computer Science</option>
+                <option value="mba">MBA</option>
+                <option value="ba-economics">BA in Economics</option>
+                <option value="bsc-environmental">BSc in Environmental Science</option>
+                <option value="mph">Master in Public Health</option>
+                <option value="ba-psychology">BA in Psychology</option>
+            </select>
+            
+            <input type="submit" value="Check Results">
+        </form>
+    </section>
+
+    <section id="results" class="result-container" style="display: none;">
+        <h2>Results</h2>
+        <div id="resultsDisplay"></div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 XYZ University. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Dummy data for results (to be replaced with actual data fetching)
+const resultsData = {
+    "btech-cse": {
+        name: "Kanan",
+        registrationNo: "12218407",
+        course: "B.Tech in Computer Science",
+        assignments: [
+            { name: "Web Development Project", marks: 85, feedback: "Excellent work! Keep it up." },
+            { name: "Database Management System Design", marks: 78, feedback: "Good effort. Focus on normalization techniques." }
+        ],
+        midterm: { marks: 75, feedback: "Solid performance in the midterm exam." }
+    },
+    "mba": {
+        name: "Jane Smith",
+        registrationNo: "12208659",
+        course: "MBA",
+        assignments: [
+            { name: "Marketing Campaign Analysis", marks: 90, feedback: "Impressive analysis and insights." },
+            { name: "Financial Accounting Case Study", marks: 82, feedback: "Detailed analysis. Work on presentation clarity." }
+        ],
+        midterm: { marks: 80, feedback: "Well done in the midterm assessment." }
+    },
+    "ba-economics": {
+        name: "Alice Brown",
+        registrationNo: "12225634",
+        course: "BA in Economics",
+        assignments: [
+            { name: "Microeconomics Research Paper", marks: 88, feedback: "Insightful research. Focus on economic models." },
+            { name: "Macroeconomics Case Study", marks: 79, feedback: "Good grasp of macroeconomic concepts." }
+        ],
+        midterm: { marks: 72, feedback: "Solid understanding demonstrated in the midterm." }
+    },
+    "bsc-environmental": {
+        name: "Emmy Green",
+        registrationNo: "20200045",
+        course: "BSc in Environmental Science",
+        assignments: [
+            { name: "Environmental Impact Assessment", marks: 86, feedback: "Thorough assessment. Consider broader ecological impacts." },
+            { name: "Conservation Biology Field Report", marks: 75, feedback: "Detailed field observations. Include more statistical analysis." }
+        ],
+        midterm: { marks: 78, feedback: "Good performance in the midterm evaluation." }
+    },
+    "mph": {
+        name: "Emily White",
+        registrationNo: "12459876",
+        course: "Master in Public Health",
+        assignments: [
+            { name: "Epidemiology Research Proposal", marks: 92, feedback: "Excellent proposal. Detailed methodology." },
+            { name: "Health Policy Analysis", marks: 85, feedback: "Comprehensive analysis of health policies." }
+        ],
+        midterm: { marks: 88, feedback: "Outstanding performance in the midterm assessment." }
+    },
+    "ba-psychology": {
+        name: "rahul sharma",
+        registrationNo: "13450825",
+        course: "BA in Psychology",
+        assignments: [
+            { name: "Developmental Psychology Case Study", marks: 84, feedback: "Insightful case study. Recommend deeper analysis of cognitive development." },
+            { name: "Cognitive Psychology Experiment", marks: 76, feedback: "Well-structured experiment. Ensure clarity in reporting results." }
+        ],
+        midterm: { marks: 79, feedback: "Solid understanding of psychological principles shown in the midterm." }
+    }
+};
+
+// Function to show results based on form submission
+function showResults(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById("name").value.trim();
+    const registrationNo = document.getElementById("registrationNo").value.trim();
+    const course = document.getElementById("course").value;
+
+    const results = resultsData[course];
+
+    if (results && results.name.toLowerCase() === name.toLowerCase() && results.registrationNo === registrationNo) {
+        const resultsDisplay = document.getElementById("resultsDisplay");
+        resultsDisplay.innerHTML = `
+            <p><strong>Name:</strong> ${results.name}</p>
+            <p><strong>Registration Number:</strong> ${results.registrationNo}</p>
+            <p><strong>Course:</strong> ${results.course}</p>
+            <h3>Assignments</h3>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Assignment</th>
+                        <th>Marks</th>
+                        <th>Teacher Feedback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${results.assignments.map(assignment => `
+                        <tr>
+                            <td>${assignment.name}</td>
+                            <td>${assignment.marks}</td>
+                            <td>${assignment.feedback}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            <h3>Midterm Exam</h3>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Marks</th>
+                        <th>Teacher Feedback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${results.midterm.marks}</td>
+                        <td>${results.midterm.feedback}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+        document.getElementById("results").style.display = "block";
+    } else {
+        alert("Results not found. Please check your details and try again.");
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+{% endblock content %}

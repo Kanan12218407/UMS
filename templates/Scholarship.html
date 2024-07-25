@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}Scholarship{% endblock title %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Scholarship</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        #responseMessage {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Apply for Scholarship</h1>
+        <form method="post" action="/Scholarship/">
+            {% csrf_token %}
+        <form id="scholarshipForm">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="Phone Number" >Phone Number: </label>
+                <input type="tel" id="phone" name="phoneNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="10thMarks">10th Grade Marks (%):</label>
+                <input type="number" id="10thMarks" name="10thMarks" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="12thMarks">12th Grade Marks (%):</label>
+                <input type="number" id="12thMarks" name="12thMarks" min="0" max="100" required>
+            </div>
+            <div class="form-group">
+                <label for="diplomaMarks">Diploma Marks (%):</label>
+                <input type="number" id="diplomaMarks" name="diplomaMarks" min="0" max="100">
+            </div>
+            <div class="form-group">
+                <label for="competitiveExamScore">Competitive Exam Score:</label>
+                <input type="number" id="competitiveExamScore" name="competitiveExamScore" required>
+            </div>
+            <div class="form-group">
+                <label for="universityExamScore">University Exam Score:</label>
+                <input type="number" id="universityExamScore" name="universityExamScore">
+            </div>
+            <div class="form-group">
+                <label for="course">Course</label>
+                <select id="course" name="course" required>
+                    <option value="">Select Course</option>
+                    <option value="B.Tech in Computer Science">B.Tech in Computer Science</option>
+                    <option value="Master of Business Administration (MBA)">Master of  Business  Administration (MBA)</option>
+                    <option value="Bachelor of Arts in Economics">Bachelor of Arts in Economics</option>
+                    <option value="Bachelor of Science in Environmental Science">Bachelor of Science in Environmental Science</option>
+                    <option value="Master of Public Health (MPH)">Master of Public Health (MPH)
+                    </option>
+                    <option value="Bachelor of Arts in Psychology">Bachelor of Arts in Psychology
+                    </option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Submit Application</button>
+            </div>
+        </form>
+        <div id="responseMessage"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('scholarshipForm');
+            const responseMessage = document.getElementById('responseMessage');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+            
+                const formData = new FormData(form);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                
+                const isValid = validateFormData(data);
+
+                if (isValid) {
+                
+
+                    responseMessage.innerHTML = '<p>Thank you for applying! You will be contacted via email if you qualify for the scholarship.</p>';
+                    form.reset(); 
+                } else {
+                    responseMessage.innerHTML = '<p>Please fill out all required fields correctly.</p>';
+                }
+            });
+
+            function validateFormData(data) {
+
+                if (!data.firstName || !data.lastName || !data.email || !data['10thMarks'] || !data['12thMarks'] || !data.competitiveExamScore || !data.degreeName) {
+                    return false;
+                }
+
+            
+                if (data['10thMarks'] < 0 || data['10thMarks'] > 100 || data['12thMarks'] < 0 || data['12thMarks'] > 100 || data.competitiveExamScore < 0) {
+                    return false;
+                }
+
+                return true;
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock content %}

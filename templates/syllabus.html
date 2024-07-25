@@ -1,0 +1,413 @@
+{% extends "base.html" %}
+
+{% block title %}Syllabus{% endblock title %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XYZ University - Course Syllabus</title>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-top: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.syllabus-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.subjects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.subjects-table th, .subjects-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+</style>
+</head>
+<body>
+
+ 
+
+<main class="container">
+    <section>
+        <h2>Course Syllabus</h2>
+        <form id="syllabusForm" onsubmit="showSyllabus(event)">
+            <label for="course">Select Your Course:</label>
+            <select id="course" name="course" required>
+                <option value="">Select Course</option>
+                <option value="btech-cse">B.Tech in Computer Science (4 years)</option>
+                <option value="mba">MBA (2 years)</option>
+                <option value="ba-economics">BA in Economics (4 years)</option>
+                <option value="bsc-environmental">BSc in Environmental Science (4 years)</option>
+                <option value="mph">Master in Public Health (MPH) (2 years)</option>
+                <option value="ba-psychology">BA in Psychology (4 years)</option>
+            </select>
+            
+            <label for="studyYear">Select Study Year:</label>
+            <select id="studyYear" name="studyYear" required>
+                <option value="">Select Study Year</option>
+            </select>
+            
+            <input type="submit" value="Show Syllabus">
+        </form>
+    </section>
+
+    <section id="syllabus" class="syllabus-container" style="display: none;">
+        <h2>Syllabus</h2>
+        <div id="syllabusDisplay"></div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 XYZ University. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Dummy data for syllabus (to be replaced with actual data fetching)
+const syllabusData = {
+    "btech-cse": {
+        "1st year": {
+            subjects: [
+                { name: "Introduction to Programming", practicals: "Programming Exercises", topics: "Basic Algorithms and Data Structures" },
+                { name: "Mathematics for Computer Science", practicals: "Problem-solving Sessions", topics: "Discrete Mathematics, Calculus" },
+                { name: "Digital Logic Design", practicals: "Lab Assignments", topics: "Boolean Algebra, Sequential and Combinational Circuits" }
+            ]
+        },
+        "2nd year": {
+            subjects: [
+                { name: "Data Structures and Algorithms", practicals: "Algorithm Implementations", topics: "Advanced Data Structures, Sorting Algorithms" },
+                { name: "Database Management Systems", practicals: "SQL Queries", topics: "Relational Databases, Normalization" },
+                { name: "Computer Networks", practicals: "Networking Labs", topics: "Network Protocols, Routing Algorithms" }
+            ]
+        },
+        "3rd year": {
+            subjects: [
+                { name: "Operating Systems", practicals: "System Programming", topics: "Process Management, Memory Management" },
+                { name: "Software Engineering", practicals: "Project Development", topics: "Software Lifecycle, Agile Methodologies" },
+                { name: "Artificial Intelligence", practicals: "AI Projects", topics: "Machine Learning, Natural Language Processing" }
+            ]
+        },
+        "4th year": {
+            subjects: [
+                { name: "Big Data Analytics", practicals: "Data Analysis Projects", topics: "Hadoop, MapReduce" },
+                { name: "Cloud Computing", practicals: "Cloud Deployment", topics: "Virtualization, AWS/Azure" },
+                { name: "Capstone Project", practicals: "Research and Development", topics: "Advanced Project in Computer Science" }
+            ]
+        }
+    },
+    "mba": {
+        "1st year": {
+            subjects: [
+                { name: "Management Principles and Practices", practicals: "-", topics: "Business Ethics, Leadership" },
+                { name: "Financial Accounting", practicals: "Accounting Exercises", topics: "Financial Statements, Budgeting" },
+                { name: "Marketing Management", practicals: "Marketing Projects", topics: "Market Research, Brand Management" }
+            ]
+        },
+        "2nd year": {
+            subjects: [
+                { name: "Human Resource Management", practicals: "HR Case Studies", topics: "Employee Relations, Recruitment Strategies" },
+                { name: "Operations Management", practicals: "Operations Projects", topics: "Supply Chain Management, Quality Control" },
+                { name: "Business Strategy", practicals: "Strategic Planning", topics: "Competitive Analysis, SWOT Analysis" }
+            ]
+        }
+    },
+    "ba-economics": {
+        "1st year": {
+            subjects: [
+                { name: "Microeconomics", practicals: "-", topics: "Supply and Demand, Market Structures" },
+                { name: "Macroeconomics", practicals: "-", topics: "GDP, Inflation, Monetary Policy" },
+                { name: "Quantitative Methods", practicals: "Statistical Analysis", topics: "Mathematical Economics, Econometrics" }
+            ]
+        },
+        "2nd year": {
+            subjects: [
+                { name: "Development Economics", practicals: "-", topics: "Poverty, Economic Growth" },
+                { name: "International Economics", practicals: "-", topics: "Trade Theories, Balance of Payments" },
+                { name: "Economic Policy Analysis", practicals: "-", topics: "Policy Formulation, Economic Forecasting" }
+            ]
+        },
+        "3rd year": {
+            subjects: [
+                { name: "Econometrics", practicals: "-", topics: "Regression Analysis, Time Series Analysis" },
+                { name: "Public Economics", practicals: "-", topics: "Government Spending, Taxation" },
+                { name: "Environmental Economics", practicals: "-", topics: "Resource Allocation, Sustainability" }
+            ]
+        },
+        "4th year": {
+            subjects: [
+                { name: "Labor Economics", practicals: "-", topics: "Wages, Employment Trends" },
+                { name: "Finance and Economics", practicals: "-", topics: "Financial Markets, Investment Analysis" },
+                { name: "Capstone Project", practicals: "-", topics: "Research in Economics" }
+            ]
+        }
+    },
+    "bsc-environmental": {
+        "1st year": {
+            subjects: [
+                { name: "Introduction to Environmental Studies", practicals: "-", topics: "Ecology, Environmental Ethics" },
+                { name: "Environmental Chemistry", practicals: "Lab Experiments", topics: "Pollution Control, Water Quality" },
+                { name: "Geology and Soil Science", practicals: "-", topics: "Earth Processes, Soil Conservation" }
+            ]
+        },
+        "2nd year": {
+            subjects: [
+                { name: "Biodiversity and Conservation", practicals: "Field Studies", topics: "Conservation Strategies, Ecosystem Services" },
+                { name: "Environmental Law and Policy", practicals: "-", topics: "Legislation, Compliance" },
+                { name: "Climate Change and Mitigation", practicals: "-", topics: "Adaptation Strategies, Carbon Footprint" }
+            ]
+        },
+        "3rd year": {
+            subjects: [
+                { name: "Environmental Impact Assessment", practicals: "-", topics: "Impact Analysis, Regulatory Frameworks" },
+                { name: "Sustainable Development", practicals: "-", topics: "Resource Management, Green Technologies" },
+                { name: "Human Ecology", practicals: "-", topics: "Population Dynamics, Urbanization" }
+            ]
+        },
+        "4th year": {
+            subjects: [
+                { name: "Waste Management", practicals: "-", topics: "Recycling, Waste Treatment" },
+                { name: "Environmental Economics", practicals: "-", topics: "Economic Valuation, Cost-Benefit Analysis" },
+                { name: "Capstone Project", practicals: "-", topics: "Research in Environmental Science" }
+            ]
+        }
+    },
+    "mph": {
+        "1st year": {
+            subjects: [
+                { name: "Epidemiology", practicals: "-", topics: "Disease Surveillance, Public Health Data Analysis" },
+                { name: "Biostatistics", practicals: "Statistical Software", topics: "Statistical Methods, Data Interpretation" },
+                { name: "Health Policy and Management", practicals: "-", topics: "Healthcare Systems, Policy Analysis" }
+            ]
+        },
+        "2nd year": {
+            subjects: [
+                { name: "Global Health Issues", practicals: "-", topics: "Health Inequalities, Global Disease Burden" },
+                { name: "Health Promotion and Education", practicals: "Community Projects", topics: "Behavior Change, Health Communication" },
+                { name: "Research Methods in Public Health", practicals: "Research Projects", topics: "Study Design, Data Collection" }
+            ]
+        }
+    },
+    "ba-psychology": {
+        "1st year": {
+            subjects: [
+                { name: "Introduction to Psychology", practicals: "-", topics: "Behavioral Psychology, Cognitive Psychology" },
+                { name: "Social Psychology", practicals: "Social Experiments", topics: "Group Dynamics, Interpersonal Relationships" },
+                { name: "Developmental Psychology", practicals: "-", topics: "Human Growth, Lifespan Development" }
+            ]
+        },
+        "2nd year": {
+            subjects: [
+                { name: "Abnormal Psychology", practicals: "-", topics: "Psychological Disorders, Therapeutic Interventions" },
+                { name: "Counseling Psychology", practicals: "Counseling Sessions", topics: "Therapeutic Techniques, Counseling Ethics" },
+                { name: "Research Methods in Psychology", practicals: "Psychological Research", topics: "Experimental Design, Data Analysis" }
+            ]
+        },
+        "3rd year": {
+            subjects: [
+                { name: "Industrial and Organizational Psychology", practicals: "-", topics: "Workplace Behavior, Employee Motivation" },
+                { name: "Health Psychology", practicals: "-", topics: "Psychosocial Factors, Behavioral Medicine" },
+                { name: "Psychological Testing and Assessment", practicals: "Assessment Exercises", topics: "Testing Methods, Interpretation" }
+            ]
+        },
+        "4th year": {
+            subjects: [
+                { name: "Forensic Psychology", practicals: "-", topics: "Criminal Behavior, Legal Issues" },
+                { name: "Positive Psychology", practicals: "-", topics: "Well-being, Happiness" },
+                { name: "Capstone Project", practicals: "-", topics: "Research in Psychology" }
+            ]
+        }
+    }
+};
+
+// Function to populate study years based on selected course
+function populateStudyYears() {
+    const courseSelect = document.getElementById("course");
+    const studyYearSelect = document.getElementById("studyYear");
+    const course = courseSelect.value;
+
+    // Clear previous options
+    studyYearSelect.innerHTML = '<option value="">Select Study Year</option>';
+
+    if (course) {
+        const courseData = syllabusData[course];
+        if (courseData) {
+            Object.keys(courseData).forEach(year => {
+                const option = document.createElement("option");
+                option.value = year;
+                option.textContent = year;
+                studyYearSelect.appendChild(option);
+            });
+        }
+    }
+}
+
+// Function to show syllabus based on form submission
+function showSyllabus(event) {
+    event.preventDefault();
+
+    const course = document.getElementById("course").value;
+    const studyYear = document.getElementById("studyYear").value;
+
+    if (course && studyYear) {
+        const syllabusDisplay = document.getElementById("syllabusDisplay");
+        syllabusDisplay.innerHTML = ''; // Clear previous content
+
+        const subjects = syllabusData[course][studyYear].subjects;
+        const table = document.createElement('table');
+        table.classList.add('subjects-table');
+
+        // Create table header
+        const header = table.createTHead();
+        const headerRow = header.insertRow();
+        const headers = ['Subject Name', 'Practicals', 'Topics'];
+        headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+
+        // Create table body
+        const body = table.createTBody();
+        subjects.forEach(subject => {
+            const row = body.insertRow();
+            const { name, practicals, topics } = subject;
+            const data = [name, practicals, topics];
+            data.forEach(text => {
+                const cell = row.insertCell();
+                cell.textContent = text;
+            });
+        });
+
+        // Append table to syllabus display
+        syllabusDisplay.appendChild(table);
+
+        // Display syllabus section
+        document.getElementById("syllabus").style.display = "block";
+    } else {
+        alert("Please select both course and study year.");
+    }
+}
+
+// Event listeners
+document.getElementById("course").addEventListener("change", populateStudyYears);
+
+</script>
+
+</body>
+</html>
+
+
+{% endblock content %}

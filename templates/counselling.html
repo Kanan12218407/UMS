@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Counselling{% endblock title %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counseling Registration - XYZ University</title>
+  <link id="theme-style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-NRdWRBLbq66T/J1+6MTU/JJ4XJXGJbsTHyLzJ9eFrnqFYWmHkS9CvR0Q7/NqrgozXBRsG4dCC1P4C6ZoUDLkzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Global styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-check {
+      margin-bottom: 10px;
+    }
+
+    .time-slot-label {
+      margin-right: 10px;
+    }
+
+    .info-section {
+      margin-top: 30px;
+    }
+
+    .info-section h2 {
+      font-size: 1.8rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .info-section p {
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Carousel Styles */
+    .carousel-item img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .carousel-item .carousel-caption {
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7); 
+      color: #fff;
+      padding: 10px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    .carousel-caption h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .carousel-caption p {
+      font-size: 1rem;
+      color: #fff; 
+
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="text-center my-5">Counseling Registration</h1>
+  <form method="post" action="/counselling/"> 
+    {% csrf_token %}
+
+  <form id="counseling-form">
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label>Preferred Time Slot</label><br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="timeslot" id="timeslot-morning" value="morning" required>
+        <label class="form-check-label time-slot-label" for="timeslot-morning">Morning</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="timeslot" id="timeslot-afternoon" value="afternoon">
+        <label class="form-check-label time-slot-label" for="timeslot-afternoon">Afternoon</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="timeslot" id="timeslot-evening" value="evening">
+        <label class="form-check-label time-slot-label" for="timeslot-evening">Evening</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+
+  <div class="info-section">
+    <h2>About Counseling at XYZ University</h2>
+    <p>
+      Counseling at XYZ University is conducted by experienced professionals who are dedicated to supporting students' emotional well-being and academic success. Our counselors provide confidential sessions tailored to individual needs, addressing a wide range of concerns including stress management, career guidance, and personal development.
+    </p>
+  </div>
+
+  <div id="faculty-carousel" class="carousel slide info-section" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/static/pro1.jpeg" class="d-block w-100" alt="Faculty 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Dr. John Doe</h3>
+          <p>Professor of Psychology</p>
+          <p>Ph.D. in Clinical Psychology</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/pro2.jpeg" class="d-block w-100" alt="Faculty 2">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Dr. Jane Smith</h3>
+          <p>Associate Professor</p>
+          <p>Ph.D. in Counseling Psychology</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/pro3.jpeg" class="d-block w-100" alt="Faculty 3">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Dr. Julia Thomson</h3>
+          <p>Assistant Professor</p>
+          <p>Ph.D. in Human Psychology</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/pro4.jpg" class="d-block w-100" alt="Faculty 4">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Dr. Sonia Patel</h3>
+          <p>Head of Department(Psychology)</p>
+          <p>Ph.D. in Human Psychology</p>
+        </div>
+      </div>
+       
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#faculty-carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#faculty-carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+  document.getElementById('counseling-form').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    alert('Form submitted successfully!'); 
+  });
+</script>
+</body>
+</html>
+{% endblock content %}

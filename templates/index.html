@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid my-4 ">
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="static/landingpage.jpeg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="static/studygroup.jpeg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="static/achievements.jpeg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="static/classroom.jpeg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="static/Placement.jpg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="static/cultural-activities.jpg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="static/students.jpeg" class="d-block w-100" style="height: 500px; object-fit: cover" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container my-1">
+        <h1 class="my-2 text-center">Welcome to XYZ University!</h1>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/updates.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">UNIVERSITY UPDATES !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/updates/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">4 new updates!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/placementportal.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">PLACEMENT PORTAL !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/placement/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">2 placement drives today!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/university-exams.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">EXAMINATION !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/exam/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">you've your mid-terms coming up!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/rms.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">RMS !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/rms/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">query no.2 has been answered!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/online-fee-payment.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">FEE PAYMENT PORTAL !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/feees/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">$550 pending!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/attendence.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">STUDENT ATTENDENCE !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/atten/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">you've 5 lectures today!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/upcoming-events.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">UPCOMING EVENTS !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/events/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">6 new events!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/Assignments-add-on.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">STUDENT ASSIGNMENTS !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/assign/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">4 new assignments!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="static/resultss.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">STUDENT RESULT !!</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/result/" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                            <small class="text-muted">2 new notifications!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

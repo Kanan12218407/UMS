@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block title %}placement{% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placement Services - XYZ University</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.section-heading {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.info-list {
+  padding: 0;
+}
+
+.info-list li {
+  margin-bottom: 10px;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Placement Services</h1>
+ 
+  <div class="section-heading">About Placements</div>
+  <p>
+    XYZ University offers comprehensive placement services to help students transition from academia to their professional careers. Our placement program is designed to connect students with leading employers in various industries.
+  </p>
+  <ul class="info-list">
+    <li><strong>Eligibility:</strong>
+      <ul>
+        <li>Open to all full-time undergraduate and graduate students.</li>
+        <li>Students must meet minimum GPA and academic standing requirements.</li>
+      </ul>
+    </li>
+    <li><strong>Process:</strong>
+      <ul>
+        <li>Registration and profile creation on the placement portal.</li>
+        <li>Resume submission and preparation workshops.</li>
+        <li>Interviews and selection rounds with employers.</li>
+        <li>Placement offers and negotiation.</li>
+      </ul>
+    </li>
+    <li><strong>Placement Charges:</strong>
+      <ul>
+        <li>Standard placement fee of $100.</li>
+        <li>Additional charges may apply for specialized services.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="section-heading">Registration Form</div>
+  <form method="post" action="/placement/"> 
+    {% csrf_token %}
+  <form id="placementForm" class="form-container">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="studentID">Student ID:</label>
+      <input type="text" id="studentID" name="studentID" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="currentUniversity">Current University:</label>
+      <input type="text" id="currentUniversity" name="currentUniversity" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="resume">Upload Resume:</label>
+      <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" >
+    </div>
+    
+    <div class="form-group">
+      <label for="comments">Additional Comments:</label>
+      <textarea id="comments" name="comments" placeholder="Type your message here..."></textarea>
+    </div>
+    
+    <input type="submit" value="Submit Registration" class="btn-submit">
+  </form>
+
+
+
+
+
+</body>
+</html>
+{% endblock content %}

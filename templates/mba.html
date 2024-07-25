@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}MBA{% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Details - MBA Program</title>
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+        .slider-container {
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            min-width: 100%;
+            overflow: hidden;
+        }
+        .slide img {
+            width: 100%;
+            vertical-align: middle;
+        }
+        .program-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .program-overview {
+            margin-bottom: 20px;
+        }
+        .program-overview h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .program-overview p {
+            margin-bottom: 10px;
+        }
+        .admission-process {
+            margin-top: 20px;
+        }
+        .admission-process ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admission Details - MBA Program</h1>
+    </header>
+
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide">
+                <img src="/static/mbaaaaaaaaa.jpeg" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="https://via.placeholder.com/1200x400.png?text=Slide+2" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="https://via.placeholder.com/1200x400.png?text=Slide+3" alt="Slide 3">
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <section class="program-details">
+            <div class="program-overview">
+                <h2>Master of Business Administration (MBA)</h2>
+                <p><strong>Program Overview:</strong> The Master of Business Administration (MBA) program at XYZ University offers advanced business education with concentrations in finance, marketing, and entrepreneurship.</p>
+                <p>The curriculum emphasizes strategic leadership, analytical thinking, and global business practices, preparing graduates for senior management roles in diverse industries.</p>
+                <p><strong>Duration:</strong> 2 years</p>
+                <p><strong>Tuition Fee:</strong> $15,000 per year</p>
+            </div>
+            <div class="admission-process">
+                <h2>Admission Process</h2>
+                <p>The admission process for the MBA program involves the following steps:</p>
+                <ul>
+                    <li>Step 1: Complete the online application form.</li>
+                    <li>Step 2: Submit transcripts and other required documents.</li>
+                    <li>Step 3: Take the GMAT or equivalent standardized test (if applicable).</li>
+                    <li>Step 4: Attend an interview (if required).</li>
+                    <li>Step 5: Receive admission decision.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    
+
+    <script>
+        // JavaScript for Slider
+        const slider = document.querySelector('.slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 3; // Adjust scrolling speed
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>
+
+{% endblock content %}

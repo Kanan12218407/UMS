@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Online Fee Submission{% endblock title %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ University Fee Submission Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group .total-fee {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .form-group .payment-options {
+            margin-top: 10px;
+        }
+        .form-group .payment-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group .pay-now-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .form-group .pay-now-button button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>XYZ University Online Fee Submission Portal</h2>
+        <form method="post" action="/feees/">
+            {% csrf_token %}
+        <form id="feeForm">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="studentID">Student ID:</label>
+                <input type="text" id="studentID" name="studentID" required>
+            </div>
+            <div class="form-group">
+                <label for="course">Select Course:</label>
+                <select id="course" name="course" onchange="updateFeeStructure()" required>
+                    <option value="">-- Select Course --</option>
+                    <option value="Bachelors in Computer Science and Engineering">Bachelors in Computer Science and Engineering</option>
+                    <option value="MBA">MBA</option>
+                    <option value="Bachelors of Art in Economics">Bachelors of Art in Economics</option>
+                    <option value="Master in Public Health">Master in Public Health</option>
+                    <option value="Bachelor of Science in Environmental Science">Bachelor of Science in Environmental Science</option>
+                    <option value="Bachelors of Arts in Psychology">Bachelors of Arts in Psychology</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="number" id="Year" name="Year" min="1" required onchange="calculateTotalFee()">
+            </div>
+            <div class="form-group">
+                <label for="studentType">Student Type:</label>
+                <select id="studentType" name="studentType" onchange="calculateTotalFee()" required>
+                    <option value="">-- Select Student Type --</option>
+                    <option value="national">National</option>
+                    <option value="international">International</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tuitionFee">Tuition Fee:</label>
+                <select id="tuitionFee" name="tuitionFee" onchange="calculateTotalFee()" required>
+                    <option value="">-- Select Tuition Fee --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="examFee">Examination Fee:</label>
+                <select id="examFee" name="examFee" onchange="calculateTotalFee()" required>
+                    <option value="">-- Select Examination Fee --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="maintenanceCharges">Maintenance Charges:</label>
+                <select id="maintenanceCharges" name="maintenanceCharges" onchange="calculateTotalFee()" required>
+                    <option value="">-- Select Maintenance Charges --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="totalFee" class="total-fee">Total Fee:</label>
+                <span id="totalFeeDisplay">$0.00</span>
+            </div>
+            <div class="form-group payment-options">
+                <label>Payment Options:</label>
+                <label><input type="radio" name="paymentMethod" value="creditCard" checked> Credit Card</label>
+                <label><input type="radio" name="paymentMethod" value="debitCard"> Debit Card</label>
+                <label><input type="radio" name="paymentMethod" value="netBanking"> Net Banking</label>
+                <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>
+            </div>
+            <div class="form-group pay-now-button">
+                <button type="submit">Pay Now</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateFeeStructure() {
+            var course = document.getElementById('course').value;
+            var tuitionFeeElement = document.getElementById('tuitionFee');
+            var examFeeElement = document.getElementById('examFee');
+            var maintenanceChargesElement = document.getElementById('maintenanceCharges');
+
+            // Reset dropdowns
+            tuitionFeeElement.innerHTML = '';
+            examFeeElement.innerHTML = '';
+            maintenanceChargesElement.innerHTML = '';
+
+            switch(course) {
+                case 'Bachelors in Computer Science and Engineering':
+                    tuitionFeeElement.innerHTML = `
+                        <option value="16000">$16,000 (National)</option>
+                        <option value="20000">$20,000 (International)</option>
+                    `;
+                    examFeeElement.innerHTML = `
+                        <option value="200">$200 (National)</option>
+                        <option value="250">$250 (International)</option>
+                    `;
+                    maintenanceChargesElement.innerHTML = `
+                        <option value="100">$100 (National)</option>
+                        <option value="120">$120 (International)</option>
+                    `;
+                    break;
+                case 'MBA':
+                    tuitionFeeElement.innerHTML = `
+                        <option value="15000">$15,000 (National)</option>
+                        <option value="18000">$18,000 (International)</option>
+                    `;
+                    examFeeElement.innerHTML = `
+                        <option value="250">$250 (National)</option>
+                        <option value="300">$300 (International)</option>
+                    `;
+                    maintenanceChargesElement.innerHTML = `
+                        <option value="120">$120 (National)</option>
+                        <option value="140">$140 (International)</option>
+                    `;
+                    break;
+                case 'Bachelors of Art in Economics':
+                    tuitionFeeElement.innerHTML = `
+                        <option value="12000">$12,000 (National)</option>
+                        <option value="15000">$15,000 (International)</option>
+                    `;
+                    examFeeElement.innerHTML = `
+                        <option value="200">$200 (National)</option>
+                        <option value="250">$250 (International)</option>
+                    `;
+                    maintenanceChargesElement.innerHTML = `
+                        <option value="100">$100 (National)</option>
+                        <option value="120">$120 (International)</option>
+                    `;
+                    break;
+                case 'Master in Public Health':
+                    tuitionFeeElement.innerHTML = `
+                        <option value="14000">$14,000 (National)</option>
+                        <option value="17000">$17,000 (International)</option>
+                    `;
+                    examFeeElement.innerHTML = `
+                        <option value="230">$230 (National)</option>
+                        <option value="280">$280 (International)</option>
+                    `;
+                    maintenanceChargesElement.innerHTML = `
+                        <option value="130">$130 (National)</option>
+                        <option value="150">$150 (International)</option>
+                    `;
+                    break;
+                case 'Bachelor of Science in Environmental Science':
+                    tuitionFeeElement.innerHTML = `
+                        <option value="13000">$13,000 (National)</option>
+                        <option value="16000">$16,000 (International)</option>
+                    `;
+                    examFeeElement.innerHTML = `
+                        <option value="220">$220 (National)</option>
+                        <option value="270">$270 (International)</option>
+                    `;
+                    maintenanceChargesElement.innerHTML = `
+                        <option value="110">$110 (National)</option>
+                        <option value="130">$130 (International)</option>
+                    `;
+                    break;
+                case 'Bachelors of Arts in Psychology':
+                    tuitionFeeElement.innerHTML = `
+                        <option value="12000">$12,000 (National)</option>
+                        <option value="15000">$15,000 (International)</option>
+                    `;
+                    examFeeElement.innerHTML = `
+                        <option value="200">$200 (National)</option>
+                        <option value="250">$250 (International)</option>
+                    `;
+                    maintenanceChargesElement.innerHTML = `
+                        <option value="100">$100 (National)</option>
+                        <option value="120">$120 (International)</option>
+                    `;
+                    break;
+                default:
+                    break;
+            }
+            
+            // Recalculate total fee
+            calculateTotalFee();
+        }
+
+        function calculateTotalFee() {
+            var tuitionFee = parseFloat(document.getElementById('tuitionFee').value);
+            var examFee = parseFloat(document.getElementById('examFee').value);
+            var maintenanceCharges = parseFloat(document.getElementById('maintenanceCharges').value);
+            var Year = parseInt(document.getElementById('Year').value);
+            
+            var totalYearFee = Year * (tuitionFee + examFee + maintenanceCharges);
+            
+            document.getElementById('totalFeeDisplay').textContent = '$' + totalYearFee.toFixed(2);
+        }
+    </script>
+</body>
+</html>
+{% endblock content %}

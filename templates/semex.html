@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester Exchange Program - XYZ University</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.section-heading {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.info-list {
+  padding: 0;
+}
+
+.info-list li {
+  margin-bottom: 10px;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Semester Exchange Program</h1>
+
+  <div class="section-heading">Program Details</div>
+  <ul class="info-list">
+    <li><strong>Duration:</strong>
+      <ul>
+        <li>Typically one semester, 4-5 months.</li>
+        <li>Exact duration varies by partner university.</li>
+      </ul>
+    </li>
+    <li><strong>Eligibility:</strong>
+      <ul>
+        <li>Open to full-time undergraduate and graduate students.</li>
+        <li>Good academic standing required (GPA criteria apply).</li>
+        <li>Language proficiency and specific prerequisites may apply.</li>
+      </ul>
+    </li>
+    <li><strong>Partner Universities:</strong>
+      <ul>
+        <li>Extensive network of renowned institutions worldwide.</li>
+        <li>Diverse destinations offering cultural immersion and academic opportunities.</li>
+      </ul>
+    </li>
+    <li><strong>Courses Available:</strong>
+      <ul>
+        <li>Aligned with student’s major or minor; pre-approved by both universities.</li>
+        <li>Opportunities for specialized study areas or research collaborations.</li>
+      </ul>
+    </li>
+    <li><strong>Cost:</strong>
+      <ul>
+        <li>Tuition fees may be waived or covered under existing agreements.</li>
+        <li>Students responsible for travel, accommodation, and living expenses.</li>
+        <li>Financial aid and scholarships available; consult exchange program coordinator.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="section-heading">Terms and Conditions</div>
+  <ul class="info-list">
+    <li><strong>Academic Requirements:</strong>
+      <ul>
+        <li>Maintain full-time enrollment at home and host universities.</li>
+        <li>Minimum GPA requirements and completion of coursework.</li>
+      </ul>
+    </li>
+    <li><strong>Competitiveness:</strong>
+      <ul>
+        <li>Selection based on academic performance, personal statements, and recommendations.</li>
+        <li>Preference for cultural sensitivity, adaptability, and language proficiency.</li>
+      </ul>
+    </li>
+    <li><strong>Travel and Insurance:</strong>
+      <ul>
+        <li>Valid passport, visas, and comprehensive health insurance required.</li>
+        <li>Insurance varies by host country; comply with university policies.</li>
+      </ul>
+    </li>
+    <li><strong>Behavior and Conduct:</strong>
+      <ul>
+        <li>Adhere to host university rules, regulations, and codes of conduct.</li>
+        <li>Respect local customs, traditions, and cultural norms.</li>
+        <li>Consequences for academic misconduct and non-compliance.</li>
+      </ul>
+    </li>
+    <li><strong>Academic Integrity:</strong>
+      <ul>
+        <li>Uphold academic integrity standards.</li>
+        <li>Prohibited actions include plagiarism and cheating.</li>
+        <li>Consequences include disciplinary actions and future academic impacts.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="section-heading">Registration Form</div>
+  <form method="post" action="/semex/">
+    {% csrf_token %}
+  <form id="exchangeForm" class="form-container">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="studentID">Student ID:</label>
+      <input type="text" id="studentID" name="studentID" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="currentUniversity">Current University:</label>
+      <input type="text" id="currentUniversity" name="currentUniversity" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="major">Major/Program:</label>
+      <input type="text" id="major" name="major" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="comments">Comments or Questions:</label>
+      <textarea id="comments" name="comments" placeholder="Type your message here..."></textarea>
+    </div>
+    
+    <input type="submit" value="Submit Inquiry" class="btn-submit">
+  </form>
+</div>
+
+</body>
+</html>
